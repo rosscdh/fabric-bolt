@@ -95,6 +95,8 @@ class BaseTaskRunnerBackend(object):
             cache_dir = os.path.join(settings.PUBLIC_DIR, '.repo_caches')
             repo_dir = os.path.join(cache_dir, slugify(project.name))
 
+            repo_dir = getattr(settings, 'GENERIC_FABFILE_LOCATION', repo_dir)
+
             self.update_project_git(project, cache_dir, repo_dir)
             self.setup_virtual_env_if_needed(repo_dir)
             activate_loc = os.path.join(repo_dir, 'env', 'bin', 'activate')
